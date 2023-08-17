@@ -51,9 +51,7 @@ jobs:
     steps:
 
       - name: Pull Docker images
-        run: docker pull ghcr.io/siirikapyaho/frontend:latest
-        run: docker pull ghcr.io/siirikapyaho/backend:latest
+        run: docker pull ghcr.io/siirikapyaho/frontend:latest && docker pull ghcr.io/siirikapyaho/backend:latest
 
       - name: Kubeconfig
-        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
-        run: kubectl --kubeconfig kubeconfig get pods
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig && kubectl --kubeconfig kubeconfig get pods
