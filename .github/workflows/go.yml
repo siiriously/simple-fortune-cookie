@@ -1,5 +1,8 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+env:
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
 
 name: Build Go
 
@@ -11,24 +14,20 @@ on:
 
 jobs:
 
-  build:
-
+  Docker-image:
     runs-on: ubuntu-latest
-
+    needs: [Build]
+    permissions:
+      packages: write
     steps:
-    
-    - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.16.15'
+      - name: build frontend
+        run: chmod +x ci/build-frontend.sh && ci/build-frontend.sh
 
-    - name: Build Backend
-      run: cd backend && go build
-
-    - name: Build Frontend
-      run: cd frontend && go build -v
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
 
   deploy:
 
