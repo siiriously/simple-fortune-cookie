@@ -26,3 +26,11 @@ jobs:
 
     - name: Build Frontend
       run: cd frontend && go build -v
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+      - run: kubectl --kubeconfig kubeconfig get pods
