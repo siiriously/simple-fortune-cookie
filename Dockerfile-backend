@@ -1,7 +1,11 @@
-FROM golang:1.16 AS Backend
+FROM golang:1.16 AS backend
 
 WORKDIR /app
 
-COPY backend /app
+COPY ./backend /app
 
-CMD [ "app" ]
+RUN go mod download && go mod verify
+
+RUN go build -o goapp
+
+CMD ["/app/goapp"]
