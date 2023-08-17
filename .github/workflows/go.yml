@@ -19,10 +19,10 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.20'
+        go-version: '1.16.15'
 
     - name: Build Backend
-      run: go build -v ./backend
+      run: cd backend && go build
 
     - name: Build Frontend
-      run: go build -v ./frontend
+      run: cd frontend && go build -v
