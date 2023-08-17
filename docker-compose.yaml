@@ -13,8 +13,11 @@ services:
       dockerfile: Dockerfile-backend
     environment:
       REDIS_DNS: redis
+    networks:
+      - redis
 
   redis:
     image: redis
-  
+    networks:
+      - backend
     
