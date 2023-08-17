@@ -1,5 +1,5 @@
 name: 03_automation
-on: push # pull_request
+on: pull_request
 env:
   docker_username: ${{ github.actor }}
   docker_password: ${{ secrets.GITHUB_TOKEN }}
