@@ -1,0 +1,7 @@
+FROM golang:1.16 AS Backend
+
+WORKDIR /app
+
+COPY backend /app
+
+CMD [ "app" ]
