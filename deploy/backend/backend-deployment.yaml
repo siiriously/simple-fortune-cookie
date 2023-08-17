@@ -16,5 +16,4 @@ spec:
     spec:
       containers:
         - name: backend
-          image: "backend"
-          #imagePullPolicy: Always
+          image: ghcr.io/siirikapyaho/simple-fortune-cookie/backend:latest

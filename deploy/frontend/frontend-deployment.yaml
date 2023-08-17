@@ -16,5 +16,4 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: "frontend"
-          #imagePullPolicy: Always
+          image: ghcr.io/siirikapyaho/simple-fortune-cookie/frontend:latest
