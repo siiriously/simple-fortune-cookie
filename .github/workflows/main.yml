@@ -1,6 +1,6 @@
 name: 03_automation
-on: push
-env: # Set the secret as an input
+on: pull_request
+env:
   docker_username: ${{ github.actor }}
   docker_password: ${{ secrets.GITHUB_TOKEN }}
   GIT_COMMIT: ${{ github.sha }}
@@ -15,7 +15,7 @@ jobs:
       with:
         name: code
         path: .
-  Build:
+  Build :
     runs-on: ubuntu-latest
     needs: Clone-down
     steps:
