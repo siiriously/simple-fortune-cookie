@@ -13,11 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Upload Repo
-      uses: actions/upload-artifact@v3
-      with:
-        name: code
-        path: .
     - name: Run tests
       run: cd frontend/ && go test
   #  - name: kubefonfig1
