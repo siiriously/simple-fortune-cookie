@@ -20,3 +20,7 @@ jobs:
         path: .
     - name: Run tests
       run: cd frontend/ && go test
+  #  - name: kubefonfig1
+  #    run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+  #  - name: kubefonfig2
+  #    run: kubectl --kubeconfig kubeconfig <your kubectl commands>
