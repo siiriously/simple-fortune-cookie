@@ -1,7 +1,11 @@
-FROM golang:1.16 AS Frontend
+FROM golang:1.16 AS frontend
 
 WORKDIR /app
 
-COPY frontend /app
+COPY ./frontend /app
 
-CMD [ "app" ]
+RUN go mod download && go mod verify
+
+RUN go build -o goapp
+
+CMD ["/app/goapp"]
