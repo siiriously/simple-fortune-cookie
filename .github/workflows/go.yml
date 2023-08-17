@@ -1,5 +1,4 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+# This workflow will eventually build and deploy a Go application
 env:
   docker_username: ${{ github.actor }}
   docker_password: ${{ secrets.GITHUB_TOKEN }}
@@ -9,7 +8,7 @@ name: Build Go
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "developement" ]
   pull_request:
     branches: [ "main" ]
 
@@ -19,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -49,5 +49,11 @@ jobs:
     needs: [Docker-image-frontend, Docker-image-backend]
 
     steps:
-      - run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
-      - run: kubectl --kubeconfig kubeconfig get pods
+
+      - name: Pull Docker images
+        run: docker pull ghcr.io/siirikapyaho/frontend:latest
+        run: docker pull ghcr.io/siirikapyaho/backend:latest
+
+      - name: Kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+        run: kubectl --kubeconfig kubeconfig get pods
