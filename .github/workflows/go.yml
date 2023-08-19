@@ -49,8 +49,9 @@ jobs:
     needs: [Docker-image-frontend, Docker-image-backend]
 
     steps:
-      - name: Troubleshooting
-        run: ls -R ${{ github.workspace }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
       - run: kubectl --kubeconfig kubeconfig apply -f deploy/backend/backend-deployment.yaml
