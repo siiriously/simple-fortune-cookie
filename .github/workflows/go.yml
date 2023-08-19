@@ -49,5 +49,8 @@ jobs:
     needs: [Docker-image-frontend, Docker-image-backend]
 
     steps:
+      - name: Troubleshooting
+        run: ls -la | cd deploy/backend/ | ls -la
+
       - run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
       - run: kubectl --kubeconfig kubeconfig apply -f deploy/backend/backend-deployment.yaml
