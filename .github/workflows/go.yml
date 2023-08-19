@@ -50,4 +50,4 @@ jobs:
 
     steps:
       - run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
-      - run: kubectl --kubeconfig kubeconfig apply -f deploy/.
+      - run: kubectl --kubeconfig kubeconfig apply -f deploy/backend/backend-deployment.yaml
