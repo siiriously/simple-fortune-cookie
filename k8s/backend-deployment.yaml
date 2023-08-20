@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+
+spec:
+  selector:
+    matchLabels:
+      app: backed
+  template:
+    metadata:
+      labels: 
+        app: backend
+  containers:
+  - name: backend
+    image: ghcr.io/siirikapyaho/backend:latest
+    ports:
+      - containterPort: 8081
+
+
+    
