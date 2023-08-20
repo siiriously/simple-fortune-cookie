@@ -123,4 +123,4 @@ jobs:
         working-directory: deploy/frontend
         run: |
           docker pull ghcr.io/siirikapyaho/simple-fortune-cookie/frontend:latest
-          kubectl --kubeconfig kubeconfig apply -f .
+          kubectl --kubeconfig kubeconfig apply -f . 
