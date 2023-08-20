@@ -65,7 +65,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push to Github Container Registry
-        run: docker push ghcr.io/simple-fortune-cookie/frontend
+        run: |
+          docker build -t ghcr.io/simple-fortune-cookie/frontend .
+          docker push ghcr.io/simple-fortune-cookie/frontend
 
 # 4) upload backend, artifact must be uploaded before this step
   docker-backend: 
@@ -89,7 +91,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push to Github Container Registry
-        run: docker push ghcr.io/simple-fortune-cookie/backend
+        run: |
+          docker build -t ghcr.io/simple-fortune-cookie/backend .
+          docker push ghcr.io/simple-fortune-cookie/backend
 
 # 5) finally: run cluster
   cluster:
@@ -104,8 +108,6 @@ jobs:
 
       - name: deploy backend
         working-directory: deploy/backend
-        run: kubectl --kubeconfig kubeconfig apply -f .
-
-      - name: deploy frontend
-        working-directory: deploy/frontend
-        run: kubectl --kubeconfig kubeconfig apply -f .
+        run: |
+          docker pull ghcr.io/simple-fortune-cookie/backend
+          kubectl --kubeconfig kubeconfig apply -f .
