@@ -12,3 +12,18 @@ env:
   docker_username: ${{ github.actor }}
   docker_password: ${{ secrets.GITHUB_TOKEN }}
   GIT_COMMIT: ${{ github.sha }}
+
+jobs:
+# 1) run go test
+  go-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install gcc #copy from slack
+        run:  sudo apt update && sudo apt install -y gcc
+
+      - name: run go test
+        working-directory: frontend
+        run: go test
