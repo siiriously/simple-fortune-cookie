@@ -90,5 +90,5 @@ jobs:
         run: echo "${{ secrets.KUBECONFIG}}" | base64 -d > ./k8s/kubeconfig
 
       - name: deploy
-        working-directory: k8s/
-        run: kubectl --kubeconfig --validate=false kubeconfig apply -f .
+        working-directory: deploy
+        run: kubectl --kubeconfig kubeconfig apply -f . --validate=false
