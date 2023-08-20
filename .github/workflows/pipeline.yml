@@ -58,7 +58,7 @@ jobs:
       - name: build frontend docker
         run: chmod +x ci/build-frontend.sh && ci/build-frontend.sh
       - name: Log in to Github Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -85,7 +85,7 @@ jobs:
       - name: build backend docker
         run: chmod +x ci/build-backend.sh && ci/build-backend.sh
       - name: Log in to Github Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
