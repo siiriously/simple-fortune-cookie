@@ -57,8 +57,15 @@ jobs:
           path: .
       - name: build frontend docker
         run: chmod +x ci/build-frontend.sh && ci/build-frontend.sh
-      - name: push frontend
-        run: chmod +x ci/push-frontend.sh && ci/push-frontend.sh
+      - name: Log in to Github Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push to Github Container Registry
+        run: docker push ghcr.io/simple-fortune-cookie/frontend
 
 # 4) upload backend, artifact must be uploaded before this step
   docker-backend: 
@@ -74,9 +81,15 @@ jobs:
           path: .
       - name: build backend docker
         run: chmod +x ci/build-backend.sh && ci/build-backend.sh
-      - name: push backend docker
-        run: chmod +x ci/push-backend.sh && ci/push-backend.sh
+      - name: Log in to Github Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Push to Github Container Registry
+        run: docker push ghcr.io/simple-fortune-cookie/backend
 
 # 5) finally: run cluster
   cluster:
