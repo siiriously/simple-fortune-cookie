@@ -9,4 +9,4 @@ spec:
      targetPort: 8080
   selector:
       app: frontend
-  typePort: NodeIP
+  type: NodePort

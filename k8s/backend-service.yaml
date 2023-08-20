@@ -9,4 +9,4 @@ spec:
      targetPort: 8081
   selector:
       app: backend
-  typePort: NodeIP
+  type: NodePort
