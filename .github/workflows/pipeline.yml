@@ -125,5 +125,12 @@ jobs:
           docker pull ghcr.io/siirikapyaho/simple-fortune-cookie/frontend:latest
           kubectl --kubeconfig kubeconfig apply -f . 
 
-      - name: end 
-        run: kubectl --kubeconfig kubeconfig delete -f . 
+
+
+      - name: end frontend
+        working-directory: deploy/frontend
+        run: kubectl --kubeconfig kubeconfig delete -f Dockerfile-frontend 
+
+      - name: end backend
+        working-directory: deploy/backend
+        run: kubectl --kubeconfig kubeconfig delete -f Dockerfile-backend 
