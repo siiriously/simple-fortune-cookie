@@ -126,7 +126,9 @@ jobs:
           kubectl --kubeconfig kubeconfig apply -f . 
 
       - name: end frontend
-        run: kubectl --kubeconfig kubeconfig delete -f Dockerfile-frontend 
+        working-directory: deploy/frontend
+        run: kubectl --kubeconfig kubeconfig delete -f .
 
       - name: end backend
-        run: kubectl --kubeconfig kubeconfig delete -f Dockerfile-backend 
+        working-directory: deploy/backend
+        run: kubectl --kubeconfig kubeconfig delete -f .
