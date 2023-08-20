@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: frontend
+    image: ghcr.io/siirikapyaho/frontend
+
+    ports:
+    - containerPort: 8080
