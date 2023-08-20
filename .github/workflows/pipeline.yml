@@ -89,6 +89,10 @@ jobs:
       - name: add kubefconfig file
         run: echo "${{ secrets.KUBECONFIG_TEST }}" | base64 -d > kubeconfig
 
+      - name: deploy
+        working-directory: k8s/
+        run: kubectl --kubeconfig kubeconfig apply -f .
+
 
 
 
