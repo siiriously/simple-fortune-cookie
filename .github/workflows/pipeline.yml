@@ -89,6 +89,10 @@ jobs:
       - name: add kubefconfig file
         run: echo "${{ secrets.KUBECONFIG}}" | base64 -d > ./deploy/kubeconfig
 
-      - name: deploy
-        working-directory: deploy
-        run: kubectl --kubeconfig kubeconfig apply -f ./deploy/
+      - name: deploy backend
+        working-directory: deploy/backend
+        run: kubectl --kubeconfig kubeconfig apply -f .
+
+      - name: deploy frontend
+        working-directory: deploy/frontend
+        run: kubectl --kubeconfig kubeconfig apply -f .
