@@ -105,6 +105,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: add kubefconfig file
+        working-directory: deploy/backend
         run: echo "${{ secrets.KUBECONFIG}}" | base64 -d > kubeconfig
 
       - name: deploy backend
