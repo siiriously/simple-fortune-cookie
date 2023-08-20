@@ -41,3 +41,41 @@ jobs:
         with:
           name: code
           path: . 
+
+          
+# 3) upload frontend, artifact must be uploaded before this step
+  docker-frontend: 
+    runs-on: ubuntu-latest
+    needs: [upload-artifact]
+    permissions:
+      packages: write
+    steps:
+      - name: download
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+      - name: build frontend docker
+        run: chmod +x ./build-docker-frontend.sh && ./build-docker-frontend.sh
+      - name: push frontend
+        run: chmod +x ./push-docker-frontend.sh && ./push-docker-frontend.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
