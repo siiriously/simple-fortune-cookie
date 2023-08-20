@@ -60,10 +60,22 @@ jobs:
       - name: push frontend
         run: chmod +x ci/push-frontend.sh && ci/push-frontend.sh
 
-
-
-
-
+# 4) upload backend, artifact must be uploaded before this step
+  docker-backend: 
+    runs-on: ubuntu-latest
+    needs: [upload-artifact]
+    permissions:
+      packages: write
+    steps:
+      - name: download code
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+      - name: build backend docker
+        run: chmod +x ./build-backend.sh && ./build-backend.sh
+      - name: push backend docker
+        run: chmod +x ./push-backend.sh && ./push-backend.sh
 
 
 
