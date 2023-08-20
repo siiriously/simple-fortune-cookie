@@ -93,7 +93,7 @@ jobs:
 
       - name: Push to Github Container Registry
         run: |
-          docker build -tghcr.io/siirikapyaho/simple-fortune-cookie/backend .
+          docker build -t ghcr.io/siirikapyaho/simple-fortune-cookie/backend .
           docker push ghcr.io/siirikapyaho/simple-fortune-cookie/backend
 
 # 5) finally: run cluster
@@ -110,5 +110,5 @@ jobs:
       - name: deploy backend
         working-directory: deploy/backend
         run: |
-          docker pull -p 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 ghcr.io/simple-fortune-cookie/backend:latest
+          docker pull ghcr.io/siirikapyaho/simple-fortune-cookie/backend:latest
           kubectl --kubeconfig kubeconfig apply -f .
