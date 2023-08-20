@@ -91,4 +91,4 @@ jobs:
 
       - name: deploy
         working-directory: k8s/
-        run: kubectl --kubeconfig kubeconfig apply -f .
+        run: kubectl --kubeconfig --validate=false kubeconfig apply -f .
