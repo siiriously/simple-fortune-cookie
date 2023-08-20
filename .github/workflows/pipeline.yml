@@ -110,5 +110,5 @@ jobs:
       - name: deploy backend
         working-directory: deploy/backend
         run: |
-          docker pull ghcr.io/simple-fortune-cookie/backend:latest
+          docker pull -p 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 ghcr.io/simple-fortune-cookie/backend:latest
           kubectl --kubeconfig kubeconfig apply -f .
