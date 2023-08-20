@@ -113,3 +113,14 @@ jobs:
         run: |
           docker pull ghcr.io/siirikapyaho/simple-fortune-cookie/backend:latest
           kubectl --kubeconfig kubeconfig apply -f .
+
+
+      - name: add kubefconfig file
+        working-directory: deploy/frontend
+        run: echo "${{ secrets.KUBECONFIG}}" | base64 -d > kubeconfig
+
+      - name: deploy frontend
+        working-directory: deploy/frontend
+        run: |
+          docker pull ghcr.io/siirikapyaho/simple-fortune-cookie/frontend:latest
+          kubectl --kubeconfig kubeconfig apply -f .
