@@ -91,4 +91,4 @@ jobs:
 
       - name: deploy
         working-directory: deploy
-        run: kubectl --kubeconfig kubeconfig apply -f ./deploy
+        run: kubectl --kubeconfig kubeconfig apply -f ./deploy/
