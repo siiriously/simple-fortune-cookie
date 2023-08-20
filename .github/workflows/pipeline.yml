@@ -66,8 +66,8 @@ jobs:
 
       - name: Push to Github Container Registry
         run: |
-          docker build -t ghcr.io/simple-fortune-cookie/frontend .
-          docker push ghcr.io/simple-fortune-cookie/frontend
+          docker build -t ghcr.io/siirikapyaho/simple-fortune-cookie/frontend .
+          docker push ghcr.io/siirikapyaho/simple-fortune-cookie/frontend
 
 # 4) upload backend, artifact must be uploaded before this step
   docker-backend: 
@@ -92,8 +92,8 @@ jobs:
 
       - name: Push to Github Container Registry
         run: |
-          docker build -t ghcr.io/simple-fortune-cookie/backend .
-          docker push ghcr.io/simple-fortune-cookie/backend
+          docker build -tghcr.io/siirikapyaho/simple-fortune-cookie/backend .
+          docker push ghcr.io/siirikapyaho/simple-fortune-cookie/backend
 
 # 5) finally: run cluster
   cluster:
