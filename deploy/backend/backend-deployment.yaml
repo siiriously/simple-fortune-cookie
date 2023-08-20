@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/siirikapyaho/simple-fortune-cookie/backend:1.0-acf0e43d
+          image: ghcr.io/siirikapyaho/backend:1.0-acf0e43d
