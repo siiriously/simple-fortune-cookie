@@ -93,7 +93,7 @@ jobs:
 
       - name: Push to Github Container Registry
         run: |
-          docker build -t ghcr.io/siirikapyaho/simple-fortune-cookie/backend .
+          docker build -t ghcr.io/siirikapyaho/simple-fortune-cookie/backend . -f Dockerfile-backend
           docker push ghcr.io/siirikapyaho/simple-fortune-cookie/backend
 
 # 5) finally: run cluster
