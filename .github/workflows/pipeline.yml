@@ -73,9 +73,9 @@ jobs:
           name: code
           path: .
       - name: build backend docker
-        run: chmod +x ./build-backend.sh && ./build-backend.sh
+        run: chmod +x ci/build-backend.sh && ci/build-backend.sh
       - name: push backend docker
-        run: chmod +x ./push-backend.sh && ./push-backend.sh
+        run: chmod +x ci/push-backend.sh && ci/push-backend.sh
 
 
 
