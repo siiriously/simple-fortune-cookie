@@ -1,5 +1,7 @@
 docker_username_lower=$(echo "$docker_username" | tr '[:upper:]' '[:lower:]')
-echo "$docker_username_lower" | docker login ghcr.io --username "$docker_username_lower" --password-stdin
-docker push "ghcr.io/$docker_username_lower/backend:1.0-${GIT_COMMIT::8}" 
-docker push "ghcr.io/$docker_username_lower/backend:latest" &
+[[ -z "${GIT_COMMIT}" ]] && Tag='local' || Tag="${GIT_COMMIT::8}"
+[[ -z "${REPO_NAME}" ]] && Repository='' || Repository="/${REPO_NAME}"
+[[ -z "${docker_username_lower}" ]] && DockerRepo='' || DockerRepo="ghcr.io/${docker_username_lower}${Repository}/"
+docker push "${DockerRepo}backend:1.0-${Tag}" 
+docker push "${DockerRepo}backend:latest" &
 wait

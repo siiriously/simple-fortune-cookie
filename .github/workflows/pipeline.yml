@@ -5,7 +5,8 @@ on:
 #  push # for testing
 
   pull_request:
-   branches: main
+    branches:
+    - main
     
 # what are the user credentials    
 env:
@@ -48,6 +49,8 @@ jobs:
     needs: [upload-artifact]
     permissions:
       packages: write
+    env:
+      REPO_NAME: ${{ github.event.repository.name }}
     steps:
       - name: download
         uses: actions/download-artifact@v3
@@ -63,9 +66,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push to Github Container Registry
-        run: |
-          docker build -t ghcr.io/siirikapyaho/simple-fortune-cookie/frontend . -f Dockerfile-frontend
-          docker push ghcr.io/siirikapyaho/simple-fortune-cookie/frontend
+        run: chmod +x ci/push-frontend.sh && ci/push-frontend.sh
+
 
 # 4) upload backend, artifact must be uploaded before this step
   docker-backend: 
@@ -73,6 +75,8 @@ jobs:
     needs: [upload-artifact]
     permissions:
       packages: write
+    env:
+      REPO_NAME: ${{ github.event.repository.name }}
     steps:
       - name: download code
         uses: actions/download-artifact@v3
@@ -89,9 +93,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push to Github Container Registry
-        run: |
-          docker build -t ghcr.io/siirikapyaho/simple-fortune-cookie/backend . -f Dockerfile-backend
-          docker push ghcr.io/siirikapyaho/simple-fortune-cookie/backend
+        run: chmod +x ci/push-backend.sh && ci/push-backend.sh
 
 # 5) finally: run cluster
   cluster:
@@ -103,20 +105,20 @@ jobs:
       
       - name: add kubefconfig file
         working-directory: deploy/backend
-        run: echo "${{ secrets.KUBECONFIG}}" | base64 -d > kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
       - name: deploy backend
         working-directory: deploy/backend
         run: |
-          docker pull ghcr.io/siirikapyaho/simple-fortune-cookie/backend:latest
+          docker pull ghcr.io/${GITHUB_REPOSITORY}/backend:latest
           kubectl --kubeconfig kubeconfig apply -f .
           
       - name: add kubefconfig file
         working-directory: deploy/frontend
-        run: echo "${{ secrets.KUBECONFIG}}" | base64 -d > kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
       - name: deploy frontend
         working-directory: deploy/frontend
         run: |
-          docker pull ghcr.io/siirikapyaho/simple-fortune-cookie/frontend:latest
+          docker pull ghcr.io/${GITHUB_REPOSITORY}/frontend:latest
           kubectl --kubeconfig kubeconfig apply -f . 
 
       - name: end frontend
