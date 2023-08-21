@@ -16,4 +16,12 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/siirikapyaho/frontend:latest
+          image: ghcr.io/siirikapyaho/simple-fortune-cookie/frontend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: BACKEND_PORT
+              value: "80"
+            - name: BACKEND_DNS
+              value: "backend-service"
+

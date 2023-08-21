@@ -6,7 +6,6 @@ spec:
   selector:
     app: backend
   ports:
-      - name: backend
-        protocol: TCP
-        port: 8000
-        targetPort: 8000
+  - protocol: TCP
+    port: 80
+    targetPort: 9000
