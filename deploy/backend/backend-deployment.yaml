@@ -16,4 +16,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/siirikapyaho/backend:latest
+          image: ghcr.io/siirikapyaho/simple-fortune-cookie/backend:latest
+          ports: 
+            - containerPort: 9000
