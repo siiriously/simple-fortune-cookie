@@ -2,10 +2,10 @@ name: pipeline
 
 # what triggers pipeline?
 on:
-  push # for testing
+#  push # for testing
 
-#  pull_request:
-#   branches: main
+  pull_request:
+   branches: main
     
 # what are the user credentials    
 env:
@@ -42,7 +42,6 @@ jobs:
           name: code
           path: . 
 
-          
 # 3) upload frontend, artifact must be uploaded before this step
   docker-frontend: 
     runs-on: ubuntu-latest
@@ -63,8 +62,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-    
-
       - name: Push to Github Container Registry
         run: |
           docker build -t ghcr.io/siirikapyaho/simple-fortune-cookie/frontend . -f Dockerfile-frontend
@@ -107,18 +104,15 @@ jobs:
       - name: add kubefconfig file
         working-directory: deploy/backend
         run: echo "${{ secrets.KUBECONFIG}}" | base64 -d > kubeconfig
-
       - name: deploy backend
         working-directory: deploy/backend
         run: |
           docker pull ghcr.io/siirikapyaho/simple-fortune-cookie/backend:latest
           kubectl --kubeconfig kubeconfig apply -f .
-
-
+          
       - name: add kubefconfig file
         working-directory: deploy/frontend
         run: echo "${{ secrets.KUBECONFIG}}" | base64 -d > kubeconfig
-
       - name: deploy frontend
         working-directory: deploy/frontend
         run: |
@@ -128,7 +122,6 @@ jobs:
       - name: end frontend
         working-directory: deploy/frontend
         run: kubectl --kubeconfig kubeconfig delete -f .
-
       - name: end backend
         working-directory: deploy/backend
         run: kubectl --kubeconfig kubeconfig delete -f . 
