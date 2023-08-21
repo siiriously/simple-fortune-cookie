@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/siirikapyaho/frontend:1.0-acf0e43d
+          image: ghcr.io/siirikapyaho/frontend:latest
